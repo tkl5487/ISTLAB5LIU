@@ -43,7 +43,7 @@ public class Main {
         System.out.println("Decrypted Text: " + decryptedText);
 
         // Brute Force on encrypted text
-        CaesarCipher.bruteForceShift(encryptedText);
+        CaesarCipher.bruteForceShiftOnNewAlphabet(encryptedText);
 
         // Converts New Alphabet string to english string
         String originalEnglishString = AlphabetConverter.toEnglish(newAlphabetString);
