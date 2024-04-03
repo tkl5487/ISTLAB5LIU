@@ -56,35 +56,32 @@ public class CaesarCipher {
     }
 
     // Method for Brute force
-    public static void bruteForceShift(String encryptedText) {
-        // Gets the new alphabet mapping
+     public static void bruteForceShiftOnNewAlphabet(String newAlphabetString) {
         HashMap<Character, String> alphabetMap = AlphabetConverter.getAlphabetMap();
-        // Iterate through the shift of 0-25
         for (int shift = 0; shift < 26; shift++) {
-            StringBuilder result = new StringBuilder();
-            for (char c : encryptedText.toCharArray()) {
-                if (alphabetMap.containsValue(String.valueOf(c))) {
-                    for (Map.Entry<Character, String> entry :alphabetMap.entrySet()) {
-                        if (entry.getValue().charAt(0) == c) {
-                            // Calculate the indext of the decrypted character after shifting
-                            int index = entry.getKey() - 'a';
-                            int shiftedIndex = (index + shift) % 36;
-                            char shiftedChar = (char) (shiftedIndex + 'a');
-                            String shiftedSymbol = alphabetMap.get(shiftedChar);
+            StringBuilder shiftedString = new StringBuilder();
+
+            for (char character : newAlphabetString.toCharArray()) {
+                if (alphabetMap.containsValue(String.valueOf(character))) {
+                    for (Map.Entry<Character, String> entry : alphabetMap.entrySet()) {
+                        if (entry.getValue().equals(String.valueOf(character))) {
+                            // Shifting
+                            char shifted = (char) ((entry.getKey() - 'a' + shift) % 36 + 'a');
+                            String shiftedSymbol = alphabetMap.get(shifted);
                             if (shiftedSymbol != null) {
-                                result.append(shiftedSymbol);
+                                shiftedString.append(shiftedSymbol).append(" ");
                             } else {
-                                result.append(c);
+                                shiftedString.append(character).append(" ");
                             }
                             break;
                         }
                     }
                 } else {
-                    result.append(c);
+                    shiftedString.append(character);
                 }
             }
-            // Prints out the decrypted text for current shifts
-            System.out.println("Shift " + shift + ": " + result.toString());
+
+            System.out.println("Shift " + shift + ": " + shiftedString);
         }
     }
 }
